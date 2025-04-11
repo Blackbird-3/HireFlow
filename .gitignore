@@ -1,0 +1,4 @@
+.venv
+chroma_db
+backend/hireflow.db
+**__pycache__/

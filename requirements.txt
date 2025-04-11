@@ -1,0 +1,35 @@
+# HireFlow Dependencies
+
+# FastAPI for API development
+fastapi
+uvicorn
+python-multipart
+
+# Database
+# SQLite3
+
+# PDF Processing
+PyPDF2
+
+# Language Models
+langchain
+langgraph
+langchain-ollama
+langchain-community
+
+# Vector Database
+chromadb
+langchain-chroma
+
+# Data Processing
+numpy
+pandas
+
+# UI
+streamlit
+matplotlib
+plotly
+
+# Web Framework Dependencies
+pydantic
+jinja2
