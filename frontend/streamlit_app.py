@@ -230,7 +230,7 @@ elif page == "Jobs":
         if uploaded_file is not None:
             # Read CSV
             try:
-                df = pd.read_csv(uploaded_file)
+                df = pd.read_csv(uploaded_file, encoding='ISO-8859-1')
                 st.dataframe(df.head())
                 
                 if "Job Title" in df.columns and "Job Description" in df.columns:
@@ -242,16 +242,17 @@ elif page == "Jobs":
                         for i, row in df.iterrows():
                             progress = (i + 1) / len(df)
                             progress_bar.progress(progress)
-                            status_text.text(f"Processing job {i+1} of {len(df)}: {row['title']}")
-                            
-                            result = upload_job_description(row['title'], row['description'])
-                            time.sleep(0.5)  # Add a small delay to prevent API overload
-                        
+                            status_text.text(f"Processing job {i+1} of {len(df)}: {row['Job Title']}")
+
+                            # Upload job
+                            result = upload_job_description(row['Job Title'], row['Job Description'])
+                            time.sleep(0.5)
+
                         status_text.text("Import completed!")
                         st.session_state.jobs = get_jobs()
                         st.success(f"Successfully imported {len(df)} jobs.")
                 else:
-                    st.error("CSV file must contain 'title' and 'description' columns.")
+                    st.error("CSV file must contain 'Job Title' and 'Job Description' columns.")
             except Exception as e:
                 st.error(f"Error reading CSV file: {e}")
 
@@ -272,15 +273,15 @@ elif page == "Candidates":
             st.info("No candidates found. Add a new candidate to get started.")
         else:
             for candidate in st.session_state.candidates:
-                with st.expander(f"{candidate['name']} ({candidate['email']})"):
+                with st.expander(f"{candidate['name']} "):
                     st.write(f"**Candidate ID:** {candidate['id']}")
                     
                     # Actions
                     col1, col2 = st.columns(2)
+                    # with col1:
+                    #     if st.button("View Details", key=f"view_{candidate['id']}"):
+                    #         st.info("Detail view not implemented yet")
                     with col1:
-                        if st.button("View Details", key=f"view_{candidate['id']}"):
-                            st.info("Detail view not implemented yet")
-                    with col2:
                         if st.button("Delete", key=f"delete_cand_{candidate['id']}"):
                             st.error("Delete functionality not implemented yet")
     
@@ -340,7 +341,7 @@ elif page == "Matching":
     
     with col2:
         # Matching threshold
-        st.subheader("Matching Criteria")
+        st.subheader("Threshold Settings")
         threshold = st.slider("Minimum Match Score", min_value=0.0, max_value=1.0, value=0.7, step=0.05, 
                              help="Lower values will include more candidates with lower match scores")
     

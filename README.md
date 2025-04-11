@@ -22,10 +22,10 @@ HireFlow uses a multi-agent framework powered by LangGraph:
 
 - **Backend**: FastAPI
 - **Database**: SQLite
-- **AI Framework**: LangChain, LangGraph
+- **AI Framework**: LangChain
 - **LLM**: Ollama (llama3.2:1b)
 - **Vector Store**: ChromaDB
-- **Frontend** (to be implemented): Streamlit
+- **Frontend**: Streamlit
 
 ## Getting Started
 
@@ -47,9 +47,10 @@ HireFlow uses a multi-agent framework powered by LangGraph:
    pip install -r requirements.txt
    ```
 
-3. Make sure Ollama is running with the llama3.2:1b model:
+3. Make sure Ollama is running with the llama3.2:1b model, nomic-embed-text for embedding:
    ```
    ollama run llama3.2:1b
+   ollama pull nomic-embed-text
    ```
 
 4. Start the API server:
@@ -63,18 +64,12 @@ HireFlow uses a multi-agent framework powered by LangGraph:
 
 - `POST /jobs` - Create a new job listing
 - `POST /candidates` - Upload a candidate's CV
-- `POST /match` - Match candidates with a job position
+- `POST /matchcv` - Match candidates with a job position
 - `POST /interview-requests` - Generate and send interview requests
 - `GET /jobs` - List all jobs
 - `GET /candidates` - List all candidates
 
-## Future Enhancements
 
-- Streamlit frontend for easier interaction
-- Enhanced matching algorithms with semantic search
-- Integration with email sending services
-- Candidate feedback collection and analysis
-- Interview scheduling with calendar integration
 
 ## License
 
